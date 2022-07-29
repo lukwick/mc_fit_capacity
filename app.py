@@ -1,44 +1,55 @@
 
-import requests
 
-from flask import Flask
+# IMPORTED MODULES
+# ----------------------------------------------------------
 
-
-## GYM ID
-id = 1447805280
-
-
-
-# Requests data from link
-response = requests.get("https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" +str(id))
+import requests             # To be able to request data from the API
+from flask import Flask     # To be able to create the flask app endpoint
+import json                 # To be able to export data in json format
 
 
 
-# Tests if request was successful
-if response.status_code != 200:
-    print("Response status was not succesful !! ")
+# FLASK
+# ---------------------------------------------------------
 
+## FLASK APPLICATION
+## -------------------
 
-
-# Transfers data to a json file 
-data = response.json()
-
-
-# Presents data
-for item in data["items"]:
-    if item["isCurrent"]:
-        current_capacity = item["percentage"]
-
-
-## Flask
 app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    # return str(current_capacity) + "%"
-    return "hi"
-
-# studios/"+str(id)+"/capacity"
 
 
-# print(current_capacity, "%")
+## SHOW ALL STUDIOS
+## --------------------
+
+@app.route("/studios")
+def get_all_studios():
+    # todo: implement proper fetching of all gym ids
+    return "['123']"
+
+
+
+## SHOW CAPACITY FOR ALL STUDIOS
+## --------------------
+
+@app.route("/studios/<id>/capacity")
+def get_capacacity_by_id(id):
+
+    # Request data from link
+    response = requests.get("https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" +str(id))
+
+    # Transform JSON into python format
+    data = response.json()
+
+    # Read information
+    capacity_dict = {}
+
+    for item in data["items"]:
+        if item["isCurrent"]:
+            capacity_dict["current"] = item["percentage"]
+    
+    # Transform data back into JSON format
+    capacity_json = json.dumps(capacity_dict)
+
+    # Return JSON as endpoint
+    return capacity_json
