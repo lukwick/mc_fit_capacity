@@ -30,6 +30,8 @@ const dummyGyms = [
       street: 'Merkelallee 1',
     },
   },
+  // mock loading gym:
+  undefined,
 ];
 
 export function App() {

@@ -5,8 +5,8 @@ export function GymList({ gyms }) {
   return (
     <div className="GymList">
       <ul className="stack stack-s">
-        {gyms.map((gym) => (
-          <li>
+        {gyms.map((gym, i) => (
+          <li key={gym?.id ?? i}>
             <GymItem {...gym} />
           </li>
         ))}

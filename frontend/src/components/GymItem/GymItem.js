@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './GymItem.css';
 
 export function GymItem({ id, title, address }) {
-  const { city, street, zip } = address;
   const [isLoading, setIsLoading] = useState(false);
   const [capacity, setCapacity] = useState(undefined);
   const [level, setLevel] = useState(undefined);
@@ -26,19 +25,36 @@ export function GymItem({ id, title, address }) {
     setCapacity(20);
   };
 
+  const isSkeleton = !id || !title || !address;
+
+  const headerContents = !isSkeleton ? (
+    <>
+      <h2 className="title title-m">{title}</h2>
+      <address>{`${address.street}, ${address.zip} ${address.city}`}</address>
+    </>
+  ) : (
+    <>
+      <div>
+        <div className="skeleton title title-m">
+          Skeleton title while loading
+        </div>
+      </div>
+      <div>
+        <div className="skeleton">Skeleton address</div>
+      </div>
+    </>
+  );
+
   return (
     <article className="GymItem theme-dark">
-      <header className="stack stack-s">
-        <h2 className="title title-m">{title}</h2>
-        <address>{`${street}, ${zip} ${city}`}</address>
-      </header>
+      <header className="stack stack-s">{headerContents}</header>
 
       <div>
         {!capacity && (
           <button
-            className="button button-full"
+            className={`button button-full ${isSkeleton ? 'skeleton' : ''}`}
             onClick={handleClick}
-            disabled={isLoading}>
+            disabled={isLoading || isSkeleton}>
             {!isLoading ? 'Check capacity' : 'Loading...'}
           </button>
         )}
@@ -57,11 +73,11 @@ export function GymItem({ id, title, address }) {
 }
 
 GymItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  title: PropTypes.string,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   address: PropTypes.shape({
     city: PropTypes.string.isRequired,
     zip: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     street: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
 };

@@ -121,3 +121,15 @@ body {
 .button-full {
   width: 100%;
 }
+
+.skeleton {
+  background-color: white;
+  /* hide text */
+  color: transparent;
+  display: inline-block;
+  pointer-events: none;
+  user-select: none;
+}
+.skeleton.button {
+  background-color: var(--color-accent);
+}
