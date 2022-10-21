@@ -1,6 +1,36 @@
-import { GymItem } from '../GymItem/GymItem';
+import { GymList } from '../GymList';
 
 import './App.css';
+
+const dummyGyms = [
+  {
+    title: 'Supergym New York',
+    id: 123,
+    address: {
+      city: 'New York City',
+      zip: '12345',
+      street: 'Main St 12',
+    },
+  },
+  {
+    title: 'BrooklynBros',
+    id: 345,
+    address: {
+      city: 'New York City',
+      zip: '34567',
+      street: 'Bro-klyn 99',
+    },
+  },
+  {
+    title: 'PumpNation Berlin',
+    id: 234,
+    address: {
+      city: 'Berlin',
+      zip: '23456',
+      street: 'Merkelallee 1',
+    },
+  },
+];
 
 export function App() {
   return (
@@ -14,14 +44,7 @@ export function App() {
 
         <main>
           <div className="container">
-            <GymItem
-              title="Supergym New York"
-              id={123}
-              address={{
-                city: 'New York City',
-                zip: '12345',
-                street: 'Main St 12',
-              }}></GymItem>
+            <GymList gyms={dummyGyms} />
           </div>
         </main>
       </div>

@@ -1,3 +1,8 @@
+.GymItem {
+  padding: var(--space-m);
+  border-radius: var(--space-xs);
+}
+
 .GymItem-header {
   display: grid;
   grid-template-columns: 1fr 15rem;

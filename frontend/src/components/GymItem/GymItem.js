@@ -27,7 +27,7 @@ export function GymItem({ id, title, address }) {
   };
 
   return (
-    <article className="GymItem">
+    <article className="GymItem theme-dark">
       <div className="GymItem-header">
         <header className="stack stack-s">
           <h2 className="title title-m">{title}</h2>
