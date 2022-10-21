@@ -16,7 +16,7 @@ export function GymList({ gyms }) {
 }
 
 GymList.propTypes = {
-  gyms: PropTypes.arrayOf(GymItem.propTypes),
+  gyms: PropTypes.arrayOf(PropTypes.shape(GymItem.propTypes)),
 };
 
 GymList.defaultProps = {
