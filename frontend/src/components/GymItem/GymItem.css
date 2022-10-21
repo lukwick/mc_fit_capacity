@@ -1,0 +1,19 @@
+.GymItem-header {
+  display: grid;
+  grid-template-columns: 1fr 15rem;
+  align-items: center;
+}
+
+.GymItem-capacity {
+  text-align: right;
+}
+
+.GymItem-level {
+  font-weight: bold;
+}
+.GymItem-level-high {
+  color: var(--color-danger);
+}
+.GymItem-level-low {
+  color: var(--color-success);
+}
