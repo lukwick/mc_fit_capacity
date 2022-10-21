@@ -28,31 +28,29 @@ export function GymItem({ id, title, address }) {
 
   return (
     <article className="GymItem theme-dark">
-      <div className="GymItem-header">
-        <header className="stack stack-s">
-          <h2 className="title title-m">{title}</h2>
-          <address>{`${street}, ${zip} ${city}`}</address>
-        </header>
+      <header className="stack stack-s">
+        <h2 className="title title-m">{title}</h2>
+        <address>{`${street}, ${zip} ${city}`}</address>
+      </header>
 
-        <div>
-          {!capacity && (
-            <button
-              className="button button-full"
-              onClick={handleClick}
-              disabled={isLoading}>
-              {!isLoading ? 'Check capacity' : 'Loading...'}
-            </button>
-          )}
+      <div>
+        {!capacity && (
+          <button
+            className="button button-full"
+            onClick={handleClick}
+            disabled={isLoading}>
+            {!isLoading ? 'Check capacity' : 'Loading...'}
+          </button>
+        )}
 
-          {capacity && (
-            <p className="GymItem-capacity">
-              Current capacity:{' '}
-              <span className={`GymItem-level GymItem-level-${level}`}>
-                {capacity}%
-              </span>
-            </p>
-          )}
-        </div>
+        {capacity && (
+          <p className="GymItem-capacity">
+            Current capacity:{' '}
+            <span className={`GymItem-level GymItem-level-${level}`}>
+              {capacity}%
+            </span>
+          </p>
+        )}
       </div>
     </article>
   );

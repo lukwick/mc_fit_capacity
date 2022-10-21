@@ -1,9 +1,6 @@
 .GymItem {
   padding: var(--space-m);
   border-radius: var(--space-xs);
-}
-
-.GymItem-header {
   display: grid;
   grid-template-columns: 1fr 15rem;
   align-items: center;
@@ -21,4 +18,14 @@
 }
 .GymItem-level-low {
   color: var(--color-success);
+}
+
+@media screen and (max-width: 768px) {
+  .GymItem {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: start;
+    gap: var(--space-m);
+  }
 }

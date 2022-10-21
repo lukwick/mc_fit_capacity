@@ -51,7 +51,8 @@ body {
 /* Layout */
 
 .container {
-  max-width: 90rem;
+  padding: 0 var(--space-m);
+  max-width: calc(60rem + var(--space-m) * 2);
   margin: 0 auto;
 }
 
