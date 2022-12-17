@@ -54,9 +54,6 @@ def get_all_studios():
     for gym in sorted(gyms_dict):
         gyms_dict_sorted[gym] = gyms_dict[gym]
 
-    # print(gyms_dict_sorted)
-
-
     # Transform data back into JSON format
     gyms_json = json.dumps(gyms_dict_sorted)
 
