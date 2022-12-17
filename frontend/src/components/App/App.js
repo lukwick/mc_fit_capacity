@@ -1,40 +1,17 @@
 import { GymList } from '../GymList';
+import { useState } from 'react';
 
 import './App.css';
 
-const dummyGyms = [
-  {
-    title: 'Supergym New York',
-    id: 123,
-    address: {
-      city: 'New York City',
-      zip: '12345',
-      street: 'Main St 12',
-    },
-  },
-  {
-    title: 'BrooklynBros',
-    id: 345,
-    address: {
-      city: 'New York City',
-      zip: '34567',
-      street: 'Bro-klyn 99',
-    },
-  },
-  {
-    title: 'PumpNation Berlin',
-    id: 234,
-    address: {
-      city: 'Berlin',
-      zip: '23456',
-      street: 'Merkelallee 1',
-    },
-  },
-  // mock loading gym:
-  undefined,
-];
-
 export function App() {
+  const [gyms, setGyms] = useState([undefined, undefined]);
+
+  useState(() => {
+    fetchGyms().then((gyms) => {
+      setGyms(gyms);
+    });
+  }, []);
+
   return (
     <div className="App theme-light">
       <div className="stack stack-xl">
@@ -46,10 +23,23 @@ export function App() {
 
         <main>
           <div className="container">
-            <GymList gyms={dummyGyms} />
+            <GymList gyms={gyms} />
           </div>
         </main>
       </div>
     </div>
   );
+}
+
+async function fetchGyms() {
+  // TODO: replace with env variable
+  const DOMAIN = 'http://localhost:5000';
+  const url = `${DOMAIN}/studios`;
+  const request = await fetch(url);
+  console.log(request);
+  const gyms = await request.json();
+  return gyms.map((gym) => ({
+    ...gym,
+    title: gym.name,
+  }));
 }
