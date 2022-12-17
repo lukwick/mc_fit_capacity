@@ -1,29 +1,29 @@
 # README
 
 ## Goal
-- Shows current capacity of selected gym
+- Shows current capacity of selected studio
 - Frontend: iOS via ReactNative
 - Backend: HTTP API via Python
 
 ## Features
-- Gym selection
-    - list ALL gyms 
+- studio selection
+    - list ALL studios 
     - allow to filter by city name
 - Capacity
-    - --> show current capacity of selected gym
+    - --> show current capacity of selected studio
 
 ## End User Journey
-1. User sees list of all gyms
-2. Clicks on gym 
+1. User sees list of all studios
+2. Clicks on studio 
 3. Sees capacity
 
 ## Request journey
-1. get list of gyms with IDs `GET /all-gyms`
+1. get list of studios with IDs `GET /all-gyms`
 2. user clicks 
 3. request capacity for that id `GET /studios/[ID]/capacity`
 
 ## Server Endpoints
-### 1. Get all gyms
+### 1. Get all studios
 
 `GET /studios`
 
@@ -37,7 +37,7 @@ Returns JSON:
 ```
 
 
-### 2. Get the capacity for selected gym
+### 2. Get the capacity for selected studio
 
 `GET /studios/[ID]/capacity`
 
