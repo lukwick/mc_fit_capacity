@@ -2,28 +2,22 @@
 # ======================================================
 
 
-import requests # To be able to request data from the API
-
-from flask import Flask # To be able to create the flask app endpoint
+import requests                 # To be able to request data from the API
+from flask import Flask         # To be able to create the flask app endpoint
 from flask_cors import CORS
-
-import json # To be able to export data in json format
-
+import json                     # To be able to export data in json format
 
 
-# == Flask
+# == Flask application
 # ======================================================
-
-## Flask application
-## ==================================
 
 app = Flask(__name__)
 CORS(app)
 
 
 
-## Get all studios
-## ==================================
+# == Get all studios
+# ======================================================
 
 @app.route("/studios")
 
@@ -58,8 +52,8 @@ def get_all_studios():
 
 
 
-## Get capacity for studio
-## ==================================
+## == Get capacity for studio
+## ======================================================
 
 @app.route("/studios/<studio_id>/capacity")
 
