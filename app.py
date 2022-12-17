@@ -20,49 +20,44 @@ CORS(app)
 # ======================================================
 
 @app.route("/studios")
-
 def get_all_studios():
     """1. Feature. Returns all studios data as a json file."""
 
-    # Request gym data from link   
-    response = requests.get(
-        "https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2")
+    # Request studio data from link   
+    response = requests.get("https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2")
 
     # Transform JSON into python format
     data = response.json()
 
-    # Create dictionary
-    gyms_dict = {}
+    # Create dictonary
+    studios_dict = {}
 
-    # Select gym name as key and gym id as value
-    for gym in data:
-        gyms_dict[gym["studioName"]] = {"id": gym["id"]}
+    # Select studio name as key and studio id as value
+    for studio in data:
+        studios_dict[studio["studioName"]] = {"id": studio["id"]}
 
-    # Sort Gym Name
-    gyms_dict_sorted = {}
-    for gym in sorted(gyms_dict):
-        gyms_dict_sorted[gym] = gyms_dict[gym]
+
+    # # Sort studio Name
+    # studios_dict_sorted = {}
+    # for studio in sorted(studios_dict):
+    #     studios_dict_sorted[studio] = studios_dict[studio]
 
     # Transform data back into JSON format
-    gyms_json = json.dumps(gyms_dict_sorted)
+    studios_json = json.dumps(studios_dict)
 
     # Return JSON as endpoint
-    return gyms_json
+    return studios_json
 
 
-
-
-## == Get capacity for studio
+## == Get capacity for specific studio
 ## ======================================================
 
 @app.route("/studios/<studio_id>/capacity")
-
 def get_capacacity_by_id(studio_id):
     """2. Feature. Returns studio capacity data as a json file."""
 
     # Request capacity data from link
-    response = requests.get(
-        "https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" + str(studio_id))
+    response = requests.get("https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" + str(studio_id))
 
     # Transform JSON into python format
     data = response.json()
