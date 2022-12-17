@@ -20,6 +20,8 @@ import json # To be able to export data in json format
 app = Flask(__name__)
 CORS(app)
 
+
+
 ## Get all studios
 ## ==================================
 
@@ -50,9 +52,9 @@ def get_all_studios():
     # Transform data back into JSON format
     gyms_json = json.dumps(gyms_dict_sorted)
 
-
     # Return JSON as endpoint
     return gyms_json
+
 
 
 
@@ -66,9 +68,7 @@ def get_capacacity_by_id(studio_id):
 
     # Request capacity data from link
     response = requests.get(
-        "https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]="
-        + str(studio_id)
-        )
+        "https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" + str(studio_id))
 
     # Transform JSON into python format
     data = response.json()
