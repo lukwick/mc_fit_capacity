@@ -1,30 +1,26 @@
-# == IMPORTED MODULES
-# ======================================================
-
-# To be able to request data from the API
-import requests
-
-# To be able to create the flask app endpoint
-from flask import Flask     
-from flask_cors import CORS, cross_origin
-
-# To be able to export data in json format
-import json
-
-# == FLASK
+# == Imported modules
 # ======================================================
 
 
-## 0. FLASK APPLICATION
+import requests # To be able to request data from the API
+
+from flask import Flask # To be able to create the flask app endpoint
+from flask_cors import CORS
+
+import json # To be able to export data in json format
+
+
+
+# == Flask
+# ======================================================
+
+## Flask application
 ## ==================================
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
-@cross_origin()
+CORS(app)
 
-
-## 1. GET ALL STUDIOS
+## Get all studios
 ## ==================================
 
 @app.route("/studios")
@@ -59,7 +55,8 @@ def get_all_studios():
     return gyms_json
 
 
-## 2. GET CAPACITY FOR ALL STUDIOS
+
+## Get capacity for studio
 ## ==================================
 
 @app.route("/studios/<studio_id>/capacity")
