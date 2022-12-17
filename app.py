@@ -1,30 +1,38 @@
 
 
-# IMPORTED MODULES
-# ----------------------------------------------------------
+# == IMPORTED MODULES
+# ======================================================
 
-import requests             # To be able to request data from the API
-from flask import Flask     # To be able to create the flask app endpoint
-import json                 # To be able to export data in json format
+# To be able to request data from the API
+import requests
+
+# To be able to create the flask app endpoint
+from flask import Flask
+
+# To be able to export data in json format
+import json
 
 
 
-# FLASK
-# ---------------------------------------------------------
+# == FLASK
+# ======================================================
 
-## FLASK APPLICATION
-## -------------------
+
+## 0. FLASK APPLICATION
+## ==================================
 
 app = Flask(__name__)
 
 
 
-## SHOW ALL STUDIOS
-## --------------------
+## 1. SHOW ALL STUDIOS
+## ==================================
 
+# HTTP:127.0.0.1:5000/studios
 @app.route("/studios")
-def get_all_studios():
 
+def get_all_studios():
+    """1. Feature. Returns all studios data as a json file."""
 
     # Request gym data from link   
     response = requests.get("https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2")
@@ -63,11 +71,14 @@ def get_all_studios():
 
 
 
-## SHOW CAPACITY FOR ALL STUDIOS
-## --------------------
+## 2. SHOW CAPACITY FOR ALL STUDIOS
+## ==================================
 
+# HTTP:127.0.0.1:5000/studios
 @app.route("/studios/<id>")
+
 def get_capacacity_by_id(id):
+    """2. Feature. Returns studio capacity data as a json file."""
 
     # Request capacity data from link
     response = requests.get("https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" +str(id))
