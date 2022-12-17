@@ -1,11 +1,12 @@
 # == Imported modules
 # ======================================================
 
-
 import requests                 # To be able to request data from the API
 from flask import Flask         # To be able to create the flask app endpoint
 from flask_cors import CORS
 import json                     # To be able to export data in json format
+
+
 
 
 # == Flask application
@@ -13,6 +14,7 @@ import json                     # To be able to export data in json format
 
 app = Flask(__name__)
 CORS(app)
+
 
 
 
@@ -29,24 +31,30 @@ def get_all_studios():
     # Transform JSON into python format
     data = response.json()
 
-    # Create dictonary
-    studios_dict = {}
 
-    # Select studio name as key and studio id as value
+    # Create list
+    studios_list = list()
+
     for studio in data:
-        studios_dict[studio["studioName"]] = {"id": studio["id"]}
 
-
-    # # Sort studio Name
-    # studios_dict_sorted = {}
-    # for studio in sorted(studios_dict):
-    #     studios_dict_sorted[studio] = studios_dict[studio]
+        studios_list.append(
+            {
+                "id": studio["id"],
+                "name": studio["studioName"],
+                "address": {
+                    "city": studio["address"]["city"],
+                    "zip": studio["address"]["zipCode"],
+                    "street": studio["address"]["street"]
+                }
+            })
 
     # Transform data back into JSON format
-    studios_json = json.dumps(studios_dict)
+    studios_json = json.dumps(studios_list)
 
     # Return JSON as endpoint
     return studios_json
+
+
 
 
 ## == Get capacity for specific studio
@@ -63,7 +71,7 @@ def get_capacacity_by_id(studio_id):
     data = response.json()
 
     # Create dictionary
-    capacity_dict = {}
+    capacity_dict = dict()
 
     # Searches for capacity information in json data
     for item in data["items"]:
@@ -77,3 +85,4 @@ def get_capacacity_by_id(studio_id):
 
     # Return JSON as endpoint
     return capacity_json
+
