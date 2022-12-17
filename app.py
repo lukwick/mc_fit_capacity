@@ -25,6 +25,7 @@ app = Flask(__name__)
 
 
 
+
 ## 1. SHOW ALL STUDIOS
 ## ==================================
 
@@ -35,7 +36,8 @@ def get_all_studios():
     """1. Feature. Returns all studios data as a json file."""
 
     # Request gym data from link   
-    response = requests.get("https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2")
+    response = requests.get(
+        "https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2")
 
     # Transform JSON into python format
     data = response.json()
@@ -57,11 +59,7 @@ def get_all_studios():
 
 
     # Transform data back into JSON format
-    gyms_json = json.dumps(gyms_dict_sorted, indent=2)
-
-
-    # print(gyms_json)
-
+    gyms_json = json.dumps(gyms_dict_sorted)
 
 
     # Return JSON as endpoint
@@ -70,28 +68,33 @@ def get_all_studios():
 
 
 
-
 ## 2. SHOW CAPACITY FOR ALL STUDIOS
 ## ==================================
 
-# HTTP:127.0.0.1:5000/studios
-@app.route("/studios/<id>")
+# HTTP:127.0.0.1:5000/studios/studio_id
+@app.route("/studios/<studio_id>")
 
-def get_capacacity_by_id(id):
+def get_capacacity_by_id(studio_id):
     """2. Feature. Returns studio capacity data as a json file."""
 
     # Request capacity data from link
-    response = requests.get("https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" +str(id))
+    response = requests.get(
+        "https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]="
+        + str(studio_id)
+        )
 
     # Transform JSON into python format
     data = response.json()
 
-    # Read information
+    # Create dictionary
     capacity_dict = {}
 
+    # Searches for capacity information in json data
     for item in data["items"]:
         if item["isCurrent"]:
-            capacity_dict["current"] = item["percentage"]
+
+            # Returns current capacity in percentage
+            capacity_dict["current capacity in percentage"] = item["percentage"]
     
     # Transform data back into JSON format
     capacity_json = json.dumps(capacity_dict)
