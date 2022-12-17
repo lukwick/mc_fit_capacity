@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
+
+:root {
+  --space-xxs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1.25rem;
+  --space-l: 2rem;
+  --space-xl: 3.25rem;
+  --space-xxl: 5.25rem;
+
+  --font-size-s: 1rem;
+  --font-size-m: 1.25rem;
+  --font-size-l: 2rem;
+  --font-size-xl: 3.25rem;
+
+  --color-dark: #33414f;
+  --color-light: #ffffff;
+  --color-accent: #ffdd03;
+  --color-accent-dark: #dec000;
+  --color-success: #0eda65;
+  --color-danger: #e12819;
+}
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Color themes */
+
+.theme-light {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
+.theme-dark {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
+
+/* Layout */
+
+.container {
+  padding: 0 var(--space-m);
+  max-width: calc(60rem + var(--space-m) * 2);
+  margin: 0 auto;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.stack-xxs {
+  gap: var(--space-xxs);
+}
+.stack-xs {
+  gap: var(--space-xs);
+}
+.stack-s {
+  gap: var(--space-s);
+}
+.stack-m {
+  gap: var(--space-m);
+}
+.stack-l {
+  gap: var(--space-l);
+}
+.stack-xl {
+  gap: var(--space-xl);
+}
+.stack-xxl {
+  gap: var(--space-xxl);
+}
+
+/* Typography */
+
+.title {
+  font-weight: bold;
+}
+.title-s {
+  font-size: var(--font-size-s);
+}
+.title-m {
+  font-size: var(--font-size-m);
+}
+.title-l {
+  font-size: var(--font-size-l);
+}
+.title-xl {
+  font-size: var(--font-size-xl);
+}
+
+.button {
+  appearance: none;
+  background-color: var(--color-accent);
+  color: var(--color-dark);
+  border-width: 0;
+  border-radius: var(--space-xxs);
+  font-family: inherit;
+  font-weight: bold;
+  padding: var(--space-s) var(--space-m);
+  transition: background-color 0.2s ease-out;
+}
+.button:not(:disabled):hover {
+  cursor: pointer;
+  background-color: var(--color-accent-dark);
+}
+.button:disabled {
+  opacity: 0.5;
+}
+.button-full {
+  width: 100%;
+}
+
+.skeleton {
+  background-color: white;
+  /* hide text */
+  color: transparent;
+  display: inline-block;
+  pointer-events: none;
+  user-select: none;
+}
+.skeleton.button {
+  background-color: var(--color-accent);
+}
