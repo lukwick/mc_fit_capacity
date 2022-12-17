@@ -45,9 +45,8 @@ def get_all_studios():
     # Create dictionary
     gyms_dict = {}
 
-    # Select Gym ID as key and Gym Name as value
+    # Select gym name as key and gym id as value
     for gym in data:
-        # gyms_dict[gym["id"]] = gym["studioName"]
         gyms_dict[gym["studioName"]] = {"id": gym["id"]}
 
     # Sort Gym Name

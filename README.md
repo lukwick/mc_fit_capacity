@@ -30,17 +30,10 @@
 Returns JSON:
 
 ```json
-[
-    {
-        id: 123,
-        name: "McFIT Leer",
-        address: {
-            city: "Leer",
-            zip: "12345",
-            street: "Hauptstrasse 1"
-        }
+{name: "McFIT Berlin"
+    {   id: 123456,
     }
-]
+}
 ```
 
 
