@@ -9,7 +9,7 @@
 - List all McFit group gym studios 
 - Show current capacity of selected studio
 
-# End User Journey
+# End user journey
 1. User sees list of all studios
 2. Clicks on studio 
 3. Sees capacity
@@ -19,7 +19,7 @@
 2. User clicks 
 3. Request capacity for that id `GET /studios/[ID]/capacity`
 
-# Server Endpoints
+# Server endpoints
 
 ## 1. Get all studios
 
