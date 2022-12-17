@@ -30,9 +30,11 @@
 Returns JSON:
 
 ```json
-{name: "McFIT Berlin"
-    {   id: 123456,
-    }
+{
+    name: "McFIT Berlin"
+        {
+            id: 123456,
+        }
 }
 ```
 
