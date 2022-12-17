@@ -1,9 +1,9 @@
 # == Imported modules
 # ======================================================
 
-import requests                 # To be able to request data from the API
-from flask import Flask         # To be able to create the flask app endpoint
-from flask_cors import CORS
+import requests                 # To be able to request data from API
+from flask import Flask         # To be able to create flask app endpoint
+from flask_cors import CORS     # Additional modules for flask app
 import json                     # To be able to export data in json format
 
 
@@ -18,41 +18,57 @@ CORS(app)
 
 
 
+# == Functions
+# ======================================================
+
+def get_data(api_link):
+    """Get data of API. Returns api response."""
+    return requests.get(api_link)
+
+def parse_data(response):
+    """Takes json file. Transforms it. Returns python data."""
+    return response.json()
+
+def dumps_json(selected_data):
+    """Takes python data. Transforms it. Returns json data."""
+    return json.dumps(selected_data)
+
+
+
 # == Get all studios
 # ======================================================
 
 @app.route("/studios")
 def get_all_studios():
-    """1. Feature. Returns all studios data as a json file."""
+    """Returns all studios data as json."""
 
-    # Request studio data from link   
-    response = requests.get("https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2")
+    api_link = "https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2"
 
-    # Transform JSON into python format
-    data = response.json()
+    def select_data(response):
+        """Takes data. Returns selected data."""
 
+        # Create output list
+        studios_list = list()
 
-    # Create list
-    studios_list = list()
+        # Loop through all studios
+        for studio in response:
+            
+            # Append each studio with selected data to list, then return list
+            studios_list.append(
+                {
+                    "id": studio["id"],
+                    "name": studio["studioName"],
+                    "address": {
+                        "city": studio["address"]["city"],
+                        "zip": studio["address"]["zipCode"],
+                        "street": studio["address"]["street"]
+                    }
+                })
+                
+        return studios_list
 
-    for studio in data:
-
-        studios_list.append(
-            {
-                "id": studio["id"],
-                "name": studio["studioName"],
-                "address": {
-                    "city": studio["address"]["city"],
-                    "zip": studio["address"]["zipCode"],
-                    "street": studio["address"]["street"]
-                }
-            })
-
-    # Transform data back into JSON format
-    studios_json = json.dumps(studios_list)
-
-    # Return JSON as endpoint
-    return studios_json
+    # Merge all functions together
+    return dumps_json(select_data(parse_data(get_data(api_link))))
 
 
 
@@ -62,27 +78,20 @@ def get_all_studios():
 
 @app.route("/studios/<studio_id>/capacity")
 def get_capacacity_by_id(studio_id):
-    """2. Feature. Returns studio capacity data as a json file."""
+    """Returns studio capacity data as json."""
 
-    # Request capacity data from link
-    response = requests.get("https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" + str(studio_id))
+    api_link = "https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" + str(studio_id)
 
-    # Transform JSON into python format
-    data = response.json()
+    def select_data(studio_hours):
+        """Takes data. Returns selected data."""
 
-    # Create dictionary
-    capacity_dict = dict()
+        # Loop through each studio hour
+        for hour in studio_hours["items"]:
 
-    # Searches for capacity information in json data
-    for item in data["items"]:
-        if item["isCurrent"]:
+            # If hour is current hour, then return value
+            if hour["isCurrent"]:
+                return {"current": hour["percentage"]}
 
-            # Returns current capacity in percentage
-            capacity_dict["current capacity in percentage"] = item["percentage"]
-    
-    # Transform data back into JSON format
-    capacity_json = json.dumps(capacity_dict)
-
-    # Return JSON as endpoint
-    return capacity_json
+    # Merge all functions together
+    return dumps_json(select_data(parse_data(get_data(api_link))))
 
