@@ -1,0 +1,31 @@
+.GymItem {
+  padding: var(--space-m);
+  border-radius: var(--space-xs);
+  display: grid;
+  grid-template-columns: 1fr 15rem;
+  align-items: center;
+}
+
+.GymItem-capacity {
+  text-align: right;
+}
+
+.GymItem-level {
+  font-weight: bold;
+}
+.GymItem-level-high {
+  color: var(--color-danger);
+}
+.GymItem-level-low {
+  color: var(--color-success);
+}
+
+@media screen and (max-width: 768px) {
+  .GymItem {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: start;
+    gap: var(--space-m);
+  }
+}
