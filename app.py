@@ -26,7 +26,7 @@ app = Flask(__name__)
 
 
 
-## 1. SHOW ALL STUDIOS
+## 1. GET ALL STUDIOS
 ## ==================================
 
 # HTTP:127.0.0.1:5000/studios
@@ -67,7 +67,7 @@ def get_all_studios():
 
 
 
-## 2. SHOW CAPACITY FOR ALL STUDIOS
+## 2. GET CAPACITY FOR ALL STUDIOS
 ## ==================================
 
 # HTTP:127.0.0.1:5000/studios/studio_id
