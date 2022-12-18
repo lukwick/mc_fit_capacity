@@ -14,6 +14,8 @@
 2. Clicks on studio 
 3. Sees capacity
 
+![McFit capacity website](/application_preview.png)
+
 # Request journey
 1. Get list of studios with IDs `GET /studios`
 2. User clicks 
