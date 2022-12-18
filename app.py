@@ -1,10 +1,10 @@
 # == Imported modules
 # ======================================================
 
-import requests                 # To be able to request data from API
-from flask import Flask         # To be able to create flask app endpoint
-from flask_cors import CORS     # Additional modules for flask app
-import json                     # To be able to export data in json format
+import requests                     # To be able to request data from API
+from flask import Flask, jsonify    # To be able to create flask app endpoint
+from flask_cors import CORS         # Additional modules for flask app
+import json                         # To be able to export data in json format
 
 
 
@@ -31,7 +31,7 @@ def parse_data(response):
 
 def dumps_json(selected_data):
     """Takes python data. Transforms it. Returns json data."""
-    return json.dumps(selected_data)
+    return jsonify(selected_data)
 
 
 
