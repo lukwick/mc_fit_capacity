@@ -36,7 +36,6 @@ async function fetchGyms() {
   const DOMAIN = 'http://localhost:5000';
   const url = `${DOMAIN}/studios`;
   const request = await fetch(url);
-  console.log(request);
   const gyms = await request.json();
   return gyms.map((gym) => ({
     ...gym,

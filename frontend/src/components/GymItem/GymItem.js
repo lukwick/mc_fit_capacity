@@ -88,7 +88,7 @@ async function fetchCapacity(gymId) {
   const DOMAIN = 'http://localhost:5000';
   const url = `${DOMAIN}/studios/${gymId}/capacity`;
   const request = await fetch(url);
-  console.log(request);
-  const { capacity } = await request.json();
-  return capacity;
+  const { current } = await request.json();
+  console.log(current);
+  return current;
 }
