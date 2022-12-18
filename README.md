@@ -1,29 +1,27 @@
-# README
+# mc_fit_capacity
 
-## Goal
-- Shows current capacity of selected gym
+# Goal
+- Show current capacity of selected studio
 - Frontend: iOS via ReactNative
 - Backend: HTTP API via Python
 
-## Features
-- Gym selection
-    - list ALL gyms 
-    - allow to filter by city name
-- Capacity
-    - --> show current capacity of selected gym
+# Features
+- List all McFit group gym studios 
+- Show current capacity of selected studio
 
-## End User Journey
-1. User sees list of all gyms
-2. Clicks on gym 
+# End user journey
+1. User sees list of all studios
+2. Clicks on studio 
 3. Sees capacity
 
-## Request journey
-1. get list of gyms with IDs `GET /all-gyms`
-2. user clicks 
-3. request capacity for that id `GET /studios/[ID]/capacity`
+# Request journey
+1. Get list of studios with IDs `GET /studios`
+2. User clicks 
+3. Request capacity for that id `GET /studios/[ID]/capacity`
 
-## Server Endpoints
-### 1. Get all gyms
+# Server endpoints
+
+## 1. Get all studios
 
 `GET /studios`
 
@@ -44,11 +42,11 @@ Returns JSON:
 ```
 
 
-### 2. Get the capacity for selected gym
+## 2. Get capacity for selected studio
 
 `GET /studios/[ID]/capacity`
 
-Returns JSON. Example: 
+Returns JSON:
 
 ```json
 {
@@ -56,14 +54,83 @@ Returns JSON. Example:
 }
 ```
 
+## Endpoints
+
+- [Gym ID List](`https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2`)
+- [Example McFit endpoint](`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=1447805280`)
 
 
-## Example McFit endpoint:
-`https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=1447805280`
+# Getting started
+
+## Install
+
+### Backend
+
+Install packages:
+
+```sh
+# Install python
+apt-get install python3
+
+# Install pip
+apt install python3-pip
+
+# Check version
+python3 --version
+pip --version
+
+# Install flask
+pip install Flask-Cors
+
+# Check install
+python3 -m pip show Flask-Cors
+```
+
+Create environment:
+
+```sh
+# Create project folder
+mkdir myproject
+
+# Go into folder
+cd myproject
+
+# Create venv folder in the project
+python3 -m venv venv
+```
+
+### Frontend
+
+```sh
+# Install node
+apt install nodejs
+
+# Install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+
+#  Check versions
+node --version
+nvm --version
+npm --version
+```
+
+## Running applications
+
+### Backend
+
+```sh
+# Start flask
+flask run
+
+# missing
+```
 
 
-## Gym ID List
-`https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2`
+### Frontend
 
+```sh
+# Start npm
+npm start
 
-
+# missing
+```

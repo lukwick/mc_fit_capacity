@@ -1,88 +1,97 @@
-# IMPORTED MODULES
-# ----------------------------------------------------------
+# == Imported modules
+# ======================================================
 
-import requests             # To be able to request data from the API
-from flask import Flask     # To be able to create the flask app endpoint
-from flask_cors import CORS, cross_origin
-import json                 # To be able to export data in json format
+import requests                     # To be able to request data from API
+from flask import Flask, jsonify    # To be able to create flask app endpoint
+from flask_cors import CORS         # Additional modules for flask app
+import json                         # To be able to export data in json format
 
 
-# FLASK
-# ---------------------------------------------------------
 
-## FLASK APPLICATION
-## -------------------
+
+# == Flask application
+# ======================================================
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 
-@cross_origin()
-# SHOW ALL STUDIOS
-# --------------------
+
+
+# == Functions
+# ======================================================
+
+def get_data(api_link):
+    """Get data of API. Returns api response."""
+    return requests.get(api_link)
+
+def parse_data(response):
+    """Takes json file. Transforms it. Returns python data."""
+    return response.json()
+
+def dumps_json(selected_data):
+    """Takes python data. Transforms it. Returns json data."""
+    return jsonify(selected_data)
+
+
+
+# == Get all studios
+# ======================================================
+
 @app.route("/studios")
 def get_all_studios():
+    """Returns all studios data as json."""
 
+    api_link = "https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2"
 
-    # Request gym data from link   
-    response = requests.get("https://rsg-group.api.magicline.com/connect/v1/studio?studioTags=AKTIV-391B8025C1714FB9B15BB02F2F8AC0B2")
+    def select_data(response):
+        """Takes data. Returns selected data."""
 
-    # Transform JSON into python format
-    data = response.json()
+        # Create output list
+        studios_list = list()
 
-    # Create dictionary
-    gyms_dict = {}
+        # Loop through all studios
+        for studio in response:
+            
+            # Append each studio with selected data to list, then return list
+            studios_list.append(
+                {
+                    "id": studio["id"],
+                    "name": studio["studioName"],
+                    "address": {
+                        "city": studio["address"]["city"],
+                        "zip": studio["address"]["zipCode"],
+                        "street": studio["address"]["street"]
+                    }
+                })
+                
+        return studios_list
 
-    # Select Gym ID as key and Gym Name as value
-    for gym in data:
-        # gyms_dict[gym["id"]] = gym["studioName"]
-        gyms_dict[gym["studioName"]] = {"id": gym["id"]}
-
-    # Sort Gym Name
-    gyms_dict_sorted = {}
-    for gym in sorted(gyms_dict):
-        gyms_dict_sorted[gym] = gyms_dict[gym]
-
-    # print(gyms_dict_sorted)
-
-
-    # Transform data back into JSON format
-    gyms_json = json.dumps(gyms_dict_sorted, indent=2)
-
-
-    # print(gyms_json)
-
-
-
-    # Return JSON as endpoint
-    return gyms_json
+    # Merge all functions together
+    return dumps_json(select_data(parse_data(get_data(api_link))))
 
 
 
 
+## == Get capacity for specific studio
+## ======================================================
 
-## SHOW CAPACITY FOR ALL STUDIOS
-## --------------------
+@app.route("/studios/<studio_id>/capacity")
+def get_capacacity_by_id(studio_id):
+    """Returns studio capacity data as json."""
 
-@app.route("/studios/<id>")
-def get_capacacity_by_id(id):
+    api_link = "https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" + str(studio_id)
 
-    # Request capacity data from link
-    response = requests.get("https://www.mcfit.com/de/auslastung/antwort/request.json?tx_brastudioprofilesmcfitcom_brastudioprofiles[studioId]=" +str(id))
+    def select_data(studio_hours):
+        """Takes data. Returns selected data."""
 
-    # Transform JSON into python format
-    data = response.json()
+        # Loop through each studio hour
+        for hour in studio_hours["items"]:
 
-    # Read information
-    capacity_dict = {}
+            # If hour is current hour, then return value
+            if hour["isCurrent"]:
+                return {"current": hour["percentage"]}
 
-    for item in data["items"]:
-        if item["isCurrent"]:
-            capacity_dict["current"] = item["percentage"]
-    
-    # Transform data back into JSON format
-    capacity_json = json.dumps(capacity_dict)
+    # Merge all functions together
+    return dumps_json(select_data(parse_data(get_data(api_link))))
 
-    # Return JSON as endpoint
-    return capacity_json
