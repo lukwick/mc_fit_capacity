@@ -32,12 +32,12 @@ Returns JSON:
 ```json
 [
     {
-        id: 123,
-        name: "McFIT Leer",
+        id: 1674653140,
+        name: "McFIT Hannover-Vahrenheide",
         address: {
-            city: "Leer",
-            zip: "12345",
-            street: "Hauptstrasse 1"
+            city: "Hannover",
+            zip: "30179",
+            street: "Vahrenwalder Str."
         }
     }
 ]
