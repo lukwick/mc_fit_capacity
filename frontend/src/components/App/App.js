@@ -1,12 +1,12 @@
 import { GymList } from '../GymList';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import './App.css';
 
 export function App() {
   const [gyms, setGyms] = useState([undefined, undefined]);
 
-  useState(() => {
+  useEffect(() => {
     fetchGyms().then((gyms) => {
       setGyms(gyms);
     });

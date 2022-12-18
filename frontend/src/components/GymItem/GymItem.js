@@ -21,8 +21,9 @@ export function GymItem({ id, title, address }) {
 
   const handleClick = () => {
     setIsLoading(true);
-    // TODO: fetch
-    setCapacity(20);
+    fetchCapacity(id).then((capacity) => {
+      setCapacity(capacity);
+    });
   };
 
   const isSkeleton = !id || !title || !address;
@@ -81,3 +82,13 @@ GymItem.propTypes = {
     street: PropTypes.string.isRequired,
   }),
 };
+
+async function fetchCapacity(gymId) {
+  // TODO: replace with env variable
+  const DOMAIN = 'http://localhost:5000';
+  const url = `${DOMAIN}/studios/${gymId}/capacity`;
+  const request = await fetch(url);
+  console.log(request);
+  const { capacity } = await request.json();
+  return capacity;
+}
