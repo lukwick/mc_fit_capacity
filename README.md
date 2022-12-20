@@ -14,6 +14,8 @@
 2. Clicks on studio 
 3. Sees capacity
 
+![McFit capacity website](/application_preview.png)
+
 # Request journey
 1. Get list of studios with IDs `GET /studios`
 2. User clicks 
@@ -30,12 +32,12 @@ Returns JSON:
 ```json
 [
     {
-        id: 123,
-        name: "McFIT Leer",
-        address: {
-            city: "Leer",
-            zip: "12345",
-            street: "Hauptstrasse 1"
+        "id": 1674653140,
+        "name": "McFIT Hannover-Vahrenheide",
+        "address": {
+            "city": "Hannover",
+            "zip": "30179",
+            "street": "Vahrenwalder Str."
         }
     }
 ]
@@ -50,7 +52,7 @@ Returns JSON:
 
 ```json
 {
-    current: 46,
+    "current": 46,
 }
 ```
 
