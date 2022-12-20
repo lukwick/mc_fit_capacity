@@ -32,12 +32,12 @@ Returns JSON:
 ```json
 [
     {
-        id: 1674653140,
-        name: "McFIT Hannover-Vahrenheide",
-        address: {
-            city: "Hannover",
-            zip: "30179",
-            street: "Vahrenwalder Str."
+        "id": 1674653140,
+        "name": "McFIT Hannover-Vahrenheide",
+        "address": {
+            "city": "Hannover",
+            "zip": "30179",
+            "street": "Vahrenwalder Str."
         }
     }
 ]
@@ -52,7 +52,7 @@ Returns JSON:
 
 ```json
 {
-    current: 46,
+    "current": 46,
 }
 ```
 
